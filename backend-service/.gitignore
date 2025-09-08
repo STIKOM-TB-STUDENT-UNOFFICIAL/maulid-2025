@@ -1,9 +1,0 @@
-# dev
-
-
-# deps
-node_modules/
-
-# env
-.env
-
