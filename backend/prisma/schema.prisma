@@ -14,24 +14,24 @@ datasource db {
 }
 
 model Peserta {
-  id           Int      @id @default(autoincrement())
+  id           Int            @id @default(autoincrement())
   nama         String
   email        String
   nowa         String
-  kelasId      Int      @map("class_id")
+  kelasId      Int            @map("class_id")
   status       PesertaStatus  @default(PENDING)
-  createAt     DateTime @default(now())
+  createAt     DateTime       @default(now())
   updateAt     DateTime?
-  cabangId     Int      @map("cabang_id")
-  cabang       Cabang   @relation(fields: [cabangId], references: [id])
-  kelas        Kelas    @relation(fields: [kelasId], references: [id])
+  cabangId     Int            @map("cabang_id")
+  cabang       Cabang         @relation(fields: [cabangId], references: [id])
+  kelas        Kelas          @relation(fields: [kelasId], references: [id])
 
   @@map("peserta")
 }
 
 model Cabang {
-  id          Int       @id @default(autoincrement())
-  nama        String    @default("")
+  id          Int             @id @default(autoincrement())
+  nama        String          @default("")
   participant Int
   harga       Float
   peserta     Peserta[]
@@ -40,18 +40,17 @@ model Cabang {
 }
 
 model Admin {
-  id        Int      @id @default(autoincrement())
+  id        Int               @id @default(autoincrement())
   username  String
   password  String
-  createdAt DateTime @default(now())
+  createdAt DateTime          @default(now())
 
   @@map("admin")
 }
 
 model Kelas {
-  id        Int     @id @default(autoincrement())
-  nama      String  @unique
-  komting   String
+  id        Int               @id @default(autoincrement())
+  nama      String            @unique
   peserta   Peserta[]
 
   @@map("kelas")

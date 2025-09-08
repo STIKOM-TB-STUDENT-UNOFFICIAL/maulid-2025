@@ -34,15 +34,13 @@ transport.verify((error, success) => {
  * @param {string} target
  * @param {string} nama
  * @param {string} kelas
- * @param {string} komting
  */
-export async function sendRegistNotify(target, nama, kelas, komting) {
+export async function sendRegistNotify(target, nama, kelas) {
   try {
     console.log(`Preparing registration email for ${target}...`)
 
     const html = await ejs.renderFile("src/views/regist-notif.ejs", {
       nama,
-      komting,
       kelas,
     })
 
@@ -61,14 +59,13 @@ export async function sendRegistNotify(target, nama, kelas, komting) {
   }
 }
 
-export async function sendRejectNotify(target, nama, kelas, komting) {
+export async function sendRejectNotify(target, nama, kelas) {
   try {
     console.log(`Preparing rejection email for ${target}...`)
 
     const html = await ejs.renderFile("src/views/regist-reject.ejs", {
       nama,
       kelas,
-      komting,
     })
 
     const result = await transport.sendMail({
@@ -86,17 +83,16 @@ export async function sendRejectNotify(target, nama, kelas, komting) {
   }
 }
 
-export async function sendApprovedNotify(target, nama, komting, kelas, id) {
+export async function sendApprovedNotify(target, nama, kelas, id) {
   try {
     console.log(`Preparing approval email with QR code for ${target}...`)
 
-    const qrcode = await generateQRCode(id, nama, kelas, komting)
+    const qrcode = await generateQRCode(id, nama, kelas)
     const base64Data = qrcode.split(',')[1]
     const qrCodeCid = `qrcode-${id}@gameon.com`
 
     const html = await ejs.renderFile("src/views/regist-approved.ejs", {
       nama,
-      komting,
       kelas,
       id,
       qrCodeCid,

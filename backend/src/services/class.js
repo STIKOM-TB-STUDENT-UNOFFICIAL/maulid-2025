@@ -17,7 +17,6 @@ export async function getClassByIdService(id) {
     return {
       id: kelas.id,
       nama: kelas.nama,
-      komting: kelas.komting,
     }
   } catch (error) {
     console.error("Error in getClassByIdService:", error)

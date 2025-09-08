@@ -91,7 +91,7 @@ export async function registProcess(data) {
       const emailPromises = participantData.map(async (p) => {
         try {
           const kelasInfo = classesInfo.find((k) => k.id === p.kelasId)
-          await sendRegistNotify(p.email, p.nama, kelasInfo?.nama || "", kelasInfo?.komting || "")
+          await sendRegistNotify(p.email, p.nama, kelasInfo?.nama || "")
           console.log(`✅ Email notification sent to ${p.email}`)
           return { email: p.email, success: true }
         } catch (error) {
@@ -179,7 +179,6 @@ export async function getRegistByIdService(id) {
       email: regist.email,
       nowa: regist.nowa,
       kelas: regist.kelas?.nama || "Unknown",
-      komting: regist.kelas?.komting || "Unknown",
       status: regist.status,
       cabang: regist.cabang,
     }
